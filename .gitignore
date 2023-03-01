@@ -5,4 +5,6 @@ __pycache__
 .vscode/
 *.__pycache__
 .ipynb*
+desktop.ini
 forced-burgers-clash
+networks/
