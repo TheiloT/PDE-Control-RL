@@ -1,3 +1,5 @@
-Name	DOMAIN	VISCOSITY	STEP_COUNT	DT	DIFFUSION_SUBSTEPS	SCENE_COUNT	BATCH_SIZE
-small-fbc	Domain([32], box=box[0:1])	0.003	32	0.03	1	100	10
-medium-fbc	Domain([32], box=box[0:1])	0.003	32	0.03	1	1000	100
+Name;DOMAIN;VISCOSITY;STEP_COUNT;DT;DIFFUSION_SUBSTEPS;SCENE_COUNT;BATCH_SIZE
+small-fbc;Domain([32], box=box[0:1]);0.003;32;0.03;1;100;10
+medium-fbc;Domain([32], box=box[0:1]);0.003;32;0.03;1;1000;100
+small-fbc-low-res;Domain([16], box=box[0:1]);0.003;16;0.06;1;100;10
+medium-fbc-low-res;Domain([16], box=box[0:1]);0.003;16;0.06;1;1000;100
