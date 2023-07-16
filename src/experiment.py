@@ -183,11 +183,14 @@ class BurgersTraining(Experiment):
         learning_rate,
         batch_size,
         data_path=None,
+        train_range=range(200, 1000),
         val_range=range(100, 200),
         test_range=range(100),
+        fixed_initial_and_target=True
     ):   
         callbacks = []
 
+        env = BurgersFixedSetEnv if fixed_initial_and_target else BurgersEnv
         env_kwargs = dict(
             num_envs=n_envs,
             step_count=step_count,
@@ -200,6 +203,12 @@ class BurgersTraining(Experiment):
         )
 
         evaluation_env_kwargs = {k:env_kwargs[k] for k in env_kwargs if k != 'num_envs'}
+
+        if fixed_initial_and_target:
+            assert data_path is not None
+            env_kwargs["data_path"]=data_path
+            env_kwargs["data_range"]=train_range
+            env_kwargs["test_mode"]=False
 
         if data_path is not None:
             self.val_env = BurgersFixedSetEnv(
@@ -245,7 +254,7 @@ class BurgersTraining(Experiment):
         callbacks.append(CustomLoggerInjectionCallback())
         callbacks.append(RecordInfoScalarsCallback('forces', 'rew_unnormalized'))
 
-        super().__init__(path, BurgersEnv, env_kwargs, agent_kwargs, steps_per_rollout, n_envs, callbacks)
+        super().__init__(path, env, env_kwargs, agent_kwargs, steps_per_rollout, n_envs, callbacks)
 
     def infer_test_set_forces(self):
         return self._infer_forces(self.test_env)
